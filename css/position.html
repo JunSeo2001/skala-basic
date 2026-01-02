@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<title>CSS Position 비교 예제</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 2000px; /* 스크롤 테스트용 */
+  }
+
+  h2 {
+    margin: 40px 20px 10px;
+  }
+
+  .container {
+    border: 2px dashed #aaa;
+    margin: 20px;
+    padding: 20px;
+    height: 200px;
+    position: relative;
+  }
+
+  .box {
+    width: 120px;
+    height: 120px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  /* 1️⃣ static */
+  .static {
+    position: static;
+    background: #999;
+  }
+
+  /* 2️⃣ relative */
+  .relative {
+    position: relative;
+    top: 20px;
+    left: 30px;
+    background: #4caf50;
+  }
+
+  /* 3️⃣ absolute */
+  .absolute {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #2196f3;
+  }
+
+  /* 4️⃣ fixed */
+  .fixed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #e91e63;
+  }
+
+  /* 5️⃣ sticky */
+  .sticky {
+    position: sticky;
+    top: 10px;
+    background: #ff9800;
+  }
+</style>
+</head>
+
+<body>
+
+<h2>1️⃣ position: static (기본값)</h2>
+<div class="container">
+  <div class="box static">STATIC</div>
+</div>
+
+<h2>2️⃣ position: relative</h2>
+<div class="container">
+  <div class="box relative">RELATIVE</div>
+</div>
+
+<h2>3️⃣ position: absolute (부모 기준)</h2>
+<div class="container">
+  <div class="box absolute">ABSOLUTE</div>
+</div>
+
+<h2>4️⃣ position: sticky (스크롤 시 고정)</h2>
+<div class="container">
+  <div class="box sticky">STICKY</div>
+</div>
+
+<h2>5️⃣ position: fixed (뷰포트 기준)</h2>
+<div class="container">
+  <div class="box fixed">FIXED</div>
+</div>
+
+</body>
+</html>

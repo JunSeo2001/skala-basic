@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>div 블록 vs 인라인 스타일 비교</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; }
+
+    .box {
+      background: #eaf2ff;
+      border: 2px solid #4f86ff;
+      padding: 12px;
+      margin: 10px 0;
+    }
+
+    /* 1) 기본 div: block */
+    .block-div { /* div는 기본이 block이라 display 안 써도 됨 */
+      width: 300px; /* block은 width 적용됨 */
+      border-radius: 10px;
+    }
+
+    /* 2) div를 inline처럼 바꿔보기 */
+    .inline-div {
+      display: inline;     /* 줄바꿈 X, 콘텐츠만큼만 차지 */
+      width: 300px;        /* inline에서는 width/height가 적용 안 됨(거의 무시됨) */
+      height: 80px;        /* 마찬가지 */
+      margin-top: 30px;    /* inline은 상하 margin이 눈에 잘 안 보임 */
+      padding: 12px;       /* padding은 적용되지만 줄 흐름에 영향 */
+    }
+
+    /* 3) 참고: inline-block(인라인처럼 배치 + width/height 적용) */
+    .inline-block-div {
+      display: inline-block;
+      width: 300px;
+      height: 60px;
+      vertical-align: top;
+      margin-right: 10px;
+    }
+
+    .note {
+      background: #fff6d6;
+      border-left: 6px solid #ffcc00;
+      padding: 10px;
+      margin: 14px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>div(block) vs div(inline) 비교</h1>
+
+  <p>
+    아래는 같은 <code>div</code>인데, CSS로 <code>display</code>를 바꿔서
+    “블록처럼 동작” vs “인라인처럼 동작”을 비교하는 예시야.
+  </p>
+
+  <div class="note">
+    <strong>포인트</strong><br/>
+    - block: 한 줄 전체 차지(자동 줄바꿈), width/height 적용 쉬움<br/>
+    - inline: 줄바꿈 없음, 콘텐츠만큼만 차지, width/height는 거의 적용 X<br/>
+    - inline-block: inline처럼 옆에 붙지만 width/height 적용 O
+  </div>
+
+  <h2>1) 기본 div (block)</h2>
+  <div class="box block-div">
+    나는 기본 div라서 <strong>block</strong>이야. <br/>
+    한 줄을 통째로 차지해서 아래로 내려가.
+  </div>
+  <span style="background:#dff7df; border:1px solid #4caf50; padding:4px;">
+    이 span은 다음 줄로 내려왔지? (block이 줄을 먹어서)
+  </span>
+
+  <h2>2) div를 inline으로 바꾼 경우</h2>
+  <div class="box inline-div">
+    나는 div지만 <code>display:inline</code>이라 <strong>inline처럼</strong> 동작해.
+  </div>
+  <span style="background:#dff7df; border:1px solid #4caf50; padding:4px;">
+    이 span이 옆에 붙을 거야.
+  </span>
+
+  <h2>3) 참고: inline-block(많이 씀)</h2>
+  <div class="box inline-block-div">
+    <strong>inline-block</strong><br/>
+    옆에 붙고(width/height 적용됨)
+  </div>
+  <div class="box inline-block-div">
+    <strong>inline-block</strong><br/>
+    두 번째 박스
+  </div>
+
+  <hr/>
+
+  <p>
+    ✅ 직접 확인해볼 것: <br/>
+    - 2번 <code>.inline-div</code>에 설정된 <code>width/height</code>가 왜 “안 먹는지”<br/>
+    - 3번 <code>inline-block</code>은 왜 width/height가 “먹는지”
+  </p>
+</body>
+</html>

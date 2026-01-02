@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>CSS Transform 버튼 예제</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+
+    .controls {
+      margin-bottom: 20px;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    .box-container {
+      perspective: 800px; /* 3D 효과용 */
+    }
+
+    .box {
+      width: 150px;
+      height: 150px;
+      background-color: #4a90e2;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      transition: transform 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>CSS Transform 효과 버튼 예제</h2>
+
+  <div class="controls">
+    <button onclick="translateBox()">이동</button>
+    <button onclick="scaleBox()">확대</button>
+    <button onclick="rotateBox()">회전</button>
+    <button onclick="skewBox()">기울이기</button>
+    <button onclick="rotate3DBox()">3D 회전</button>
+    <button onclick="resetBox()">초기화</button>
+  </div>
+
+  <div class="box-container">
+    <div class="box" id="box">BOX</div>
+  </div>
+
+  <script>
+    const box = document.getElementById('box');
+
+    function translateBox() {
+      box.style.transform = 'translate(100px, 30px)';
+    }
+
+    function scaleBox() {
+      box.style.transform = 'scale(1.4)';
+    }
+
+    function rotateBox() {
+      box.style.transform = 'rotate(45deg)';
+    }
+
+    function skewBox() {
+      box.style.transform = 'skew(20deg, 10deg)';
+    }
+
+    function rotate3DBox() {
+      box.style.transform = 'rotateY(45deg)';
+    }
+
+    function resetBox() {
+      box.style.transform = 'none';
+    }
+  </script>
+
+</body>
+</html>

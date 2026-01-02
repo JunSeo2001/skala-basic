@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drag & Drop Effect</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    padding: 40px;
+}
+
+/* 드롭 영역 */
+.box {
+    width: 300px;
+    height: 120px;
+    background-color: #5ca2ed;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 드래그 오버 시 */
+.box.drag-over {
+    background-color: #8ae87e;
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* 성공 애니메이션 */
+.box.success {
+    animation: success 0.6s ease forwards;
+}
+
+@keyframes success {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1.05); }
+}
+
+/* 파동 효과 */
+.box::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    background: rgba(255,255,255,0.4);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.box.ripple::after {
+    animation: ripple 0.6s ease;
+}
+
+@keyframes ripple {
+    from {
+        width: 0;
+        height: 0;
+        opacity: 0.8;
+    }
+    to {
+        width: 400px;
+        height: 400px;
+        opacity: 0;
+    }
+}
+
+/* 버튼 */
+button {
+    margin-top: 30px;
+    padding: 12px 24px;
+    font-size: 16px;
+    color: white;
+    background-color: #5ca2ed;
+    border: none;
+    border-radius: 5px;
+    cursor: grab;
+}
+
+button:active {
+    cursor: grabbing;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box" id="dropBox">여기로 드래그하세요</div>
+<button draggable="true" id="dragBtn">드래그 버튼</button>
+
+<script>
+const dragBtn = document.getElementById('dragBtn');
+const dropBox = document.getElementById('dropBox');
+
+// 드래그 시작
+dragBtn.addEventListener('dragstart', () => {
+    dragBtn.style.opacity = '0.5';
+});
+
+// 드래그 종료
+dragBtn.addEventListener('dragend', () => {
+    dragBtn.style.opacity = '1';
+});
+
+// 드롭 영역 진입
+dropBox.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dropBox.classList.add('drag-over');
+    dropBox.classList.add('ripple');
+});
+
+// 영역 벗어남
+dropBox.addEventListener('dragleave', () => {
+    dropBox.classList.remove('drag-over');
+});
+
+// 드롭 성공
+dropBox.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dropBox.classList.remove('drag-over');
+    dropBox.classList.remove('ripple');
+
+    dropBox.classList.add('success');
+    dropBox.textContent = '🎉 드롭 성공!';
+
+    setTimeout(() => {
+        dropBox.classList.remove('success');
+    }, 600);
+});
+</script>
+
+</body>
+</html>

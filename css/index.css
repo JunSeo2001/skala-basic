@@ -1,0 +1,66 @@
+/* CSS 변수: 중앙에서 테마 관리 */
+:root {
+    --bg: #ffffff;
+    --text: #111111;
+    --title: #0b74c9;
+    --muted: #2b2b2b;
+    --gap: 22px;
+    --page-padding: 40px;
+    --transition: 0.25s;
+}
+
+/* 다크 모드 (body에 .dark 클래스 추가하면 적용) */
+body.dark {
+    --bg: #1f1f1f;
+    --text: #f2f2f2;
+    --title: #4cc3ff;
+    --muted: #e0e0e0;
+}
+
+/* 기본 레이아웃/타이포그래피 (변수 사용) */
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    padding: var(--page-padding);
+    transition: background-color var(--transition) ease, color var(--transition) ease;
+    text-align: center;
+}
+
+.controls {
+    display: flex;
+    gap: var(--gap);
+    align-items: center;
+    margin-bottom: 36px;
+    font-size: 18px;
+    justify-content: center;
+}
+
+.controls label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 54px;
+    margin: 0 0 18px 0;
+    color: var(--title);
+    transition: color var(--transition) ease;
+}
+
+p {
+    font-size: 22px;
+    margin: 0;
+    color: var(--muted);
+    transition: color var(--transition) ease;
+}
+
+/* 작은 화면 대응 (선택적) */
+@media (max-width: 520px) {
+    h1 { font-size: 36px; }
+    p { font-size: 18px; }
+    .controls { gap: 12px; padding: 0 12px; }
+}

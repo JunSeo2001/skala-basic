@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grid 반응형 레이아웃</title>
+
+  <style>
+    /* 전체 페이지 기본 */
+    body {
+      margin: 0;
+      background: #eef3f8;         /* 스샷처럼 연한 배경 */
+      font-family: Arial, sans-serif;
+    }
+
+    /* 가운데 '기기 화면' 느낌의 프레임 */
+    .frame {
+      width: min(520px, 90vw);     /* 화면이 작으면 90vw, 크면 520px */
+      height: 780px;              /* 스샷처럼 세로로 길게 */
+      margin: 40px auto;
+      background: white;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+      padding: 18px;
+      box-sizing: border-box;
+    }
+
+    /* ✅ Grid 레이아웃 컨테이너 */
+    .layout {
+      height: 100%;
+      display: grid;
+
+      /* 모바일 기본: 세로로 쌓기 */
+      grid-template-columns: 1fr;
+      grid-template-rows: 70px 1fr 90px 70px;
+
+      /* 영역 이름 지정 (시맨틱 태그와 연결) */
+      grid-template-areas:
+        "header"
+        "main"
+        "sidebar"
+        "footer";
+
+      gap: 14px;
+    }
+
+    /* 공통 박스 스타일 */
+    header, main, aside, footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      border-radius: 4px;
+    }
+
+    /* 영역별 디자인 (스샷 느낌) */
+    header, footer {
+      background: #2f2f2f;
+      color: white;
+    }
+
+    main {
+      background: #f2f2f2;
+      color: #333;
+      justify-content: flex-start;
+      padding-left: 18px;
+      box-sizing: border-box;
+    }
+
+    aside {
+      background: #dcdcdc;
+      color: #333;
+      justify-content: flex-start;
+      padding-left: 18px;
+      box-sizing: border-box;
+    }
+
+    /* grid-area 연결 */
+    header { grid-area: header; }
+    main   { grid-area: main; }
+    aside  { grid-area: sidebar; }
+    footer { grid-area: footer; }
+
+    /* 넓은 화면(태블릿 이상)에서는 메인+사이드바 가로 배치 */
+    @media (min-width: 768px) {
+      .frame {
+        width: 900px;              /* 스샷 우측처럼 넓어짐 */
+        height: 620px;
+      }
+
+      .layout {
+        grid-template-columns: 2fr 1fr;   /* 메인이 더 넓게 */
+        grid-template-rows: 70px 1fr 70px;
+
+        grid-template-areas:
+          "header  header"
+          "main    sidebar"
+          "footer  footer";
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="frame">
+    <div class="layout">
+      <header>헤더</header>
+      <main>메인 컨텐츠</main>
+      <aside>사이드바</aside>
+      <footer>푸터</footer>
+    </div>
+  </div>
+</body>
+</html>

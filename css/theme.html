@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>테마 전환 예제</title>
+
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <!-- 라디오 버튼 -->
+  <div class="controls">
+    <label>
+      <input type="radio" name="theme" id="light" checked />
+      화이트 테마
+    </label>
+
+    <label>
+      <input type="radio" name="theme" id="dark" />
+      다크 테마
+    </label>
+  </div>
+
+  <!-- 본문 -->
+  <h1>테마 전환 예제</h1>
+  <p>CSS 사용자 정의 변수를 활용하여 테마를 전환할 수 있습니다.</p>
+
+  <script>
+    const body = document.body;
+    const lightRadio = document.getElementById("light");
+    const darkRadio = document.getElementById("dark");
+
+    // 다크 선택 시 body에 dark 클래스 추가
+    darkRadio.addEventListener("change", () => {
+      if (darkRadio.checked) body.classList.add("dark");
+    });
+
+    // 화이트 선택 시 body에서 dark 클래스 제거
+    lightRadio.addEventListener("change", () => {
+      if (lightRadio.checked) body.classList.remove("dark");
+    });
+  </script>
+</body>
+</html>

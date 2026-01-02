@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Example</title>
+    <style>
+        h1{
+            text-align: center;
+            color: navy;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            background-color: #f0f0f0;
+            border: solid 10px #ccc;
+            margin: 50px;
+        }
+        .box {
+            width: 100px;
+            height: 100px;
+            margin: 10px 13px;
+            background-color: coral;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .box:hover {
+            background-color: teal;
+            cursor: pointer;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 50px;
+        }
+        .grid-box {
+            background-color: lightseagreen;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flexbox 레이아웃 예제</h1>
+    <div class="container">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+    </div>
+
+    <h1> Grid 예제</h1>
+    <div class="grid-container">
+        <div class="grid-box">A</div>
+        <div class="grid-box">B</div>
+        <div class="grid-box">C</div>
+        <div class="grid-box">A</div>
+        <div class="grid-box">B</div>
+        <div class="grid-box">C</div>
+    </div>
+</body>
+</html>
