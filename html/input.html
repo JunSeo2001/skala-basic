@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>여러가지 입력 유형</title>
+</head>
+<body>
+    <form>
+        <label for="textInput">텍스트 입력:</label>
+        <input type="text" id="textInput" name="textInput"><br><br>
+
+        <label for="passwordInput">비밀번호 입력:</label>
+        <input type="password" id="passwordInput" name="passwordInput"><br><br>
+
+        <label for="emailInput">이메일 입력:</label>
+        <input type="email" id="emailInput" name="emailInput"><br><br>
+
+        <label for="numberInput">숫자 입력:</label>
+        <input type="number" id="numberInput" name="numberInput" step="0.1" min="0" max="10"><br><br>
+
+        <label for="dateInput">날짜 선택:</label>
+        <input type="date" id="dateInput" name="dateInput"><br><br>
+
+        <label for="colorInput">색상 선택:</label>
+        <input type="color" id="colorInput" name="colorInput"><br><br>
+
+        <label for="checkboxinput">약관 동의:</label>
+        <input type="checkbox" id="checkboxinput" name="checkboxinput">
+        <br><br>
+
+        <label for="gender">남성</label>
+        <input type="radio" id="radioInput1" name="gender" value="male">
+        <label for="gender">여성</label>
+        <input type="radio" id="radioInput2" name="gender" value="female">
+        <br><br>
+
+        <label for="grade">초등학생</label>
+        <input type="radio" id="radioInput1" name="grade" value="elementary">
+        <label for="grade">중학생</label>
+        <input type="radio" id="radioInput2" name="grade" value="middle">
+        <label for="grade">고등학생</label>
+        <input type="radio" id="radioInput3" name="grade" value="high"><br><br>
+
+        <input type="submit" value="제출"> 제출</button>
+        <h2>좋아하는 과일을 선택하세요</h2>
+        <select name="fruits" id="fruits" multiple>
+            <option value="apple">사과</option>
+            <option value="banana">바나나</option>
+            <option value="cherry">체리</option>
+            <option value="date">대추야자</option>
+            <option value="elderberry">엘더베리</option>
+        </select>
+        
+    </form>
+</body>
+</html>

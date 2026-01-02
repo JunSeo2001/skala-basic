@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>심플 웹 에디터 (Range/Selection)</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { margin: 0 0 12px; }
+    .toolbar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+    .toolbar button, .toolbar select {
+      padding: 6px 10px; cursor: pointer;
+    }
+    #editor {
+      border: 1px solid #ccc;
+      min-height: 180px;
+      padding: 10px;
+      margin-top: 12px;
+      outline: none;
+    }
+    #result {
+      border: 1px dashed #aaa;
+      margin-top: 10px;
+      padding: 10px;
+      background: #fafafa;
+      white-space: pre-wrap;
+    }
+    .hint { color:#666; font-size: 13px; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>📝 심플 웹 에디터 (Range/Selection)</h1>
+
+  <div class="toolbar">
+    <button type="button" id="btnBold"><strong>굵게</strong></button>
+    <button type="button" id="btnItalic"><em>기울임</em></button>
+    <button type="button" id="btnUnderline"><u>밑줄</u></button>
+
+    <select id="colorSelect">
+      <option value="">글자색</option>
+      <option value="black">검정</option>
+      <option value="red">빨강</option>
+      <option value="blue">파랑</option>
+      <option value="green">초록</option>
+      <option value="#f4b400">노랑(진한)</option>
+    </select>
+
+    <select id="blockSelect">
+      <option value="p">본문(p)</option>
+      <option value="h1">제목 1(h1)</option>
+      <option value="h2">제목 2(h2)</option>
+      <option value="h3">제목 3(h3)</option>
+    </select>
+
+    <button type="button" id="btnSave">저장</button>
+  </div>
+
+  <div class="hint">텍스트를 드래그로 선택한 뒤 버튼을 눌러 스타일을 적용하세요. (선택이 없으면 적용되지 않음)</div>
+
+  <div id="editor" contenteditable="true" spellcheck="true">
+    여기에 문장을 입력하고 원하는 스타일을 적용해 보세요!
+  </div>
+
+  <h3>📄 저장된 HTML 결과</h3>
+  <div id="result"></div>
+
+  <script>
+    const editor = document.getElementById("editor");
+    const result = document.getElementById("result");
+
+    // 에디터 내부 선택인지 확인하고 Range 반환
+    function getEditorRange() {
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0) return null;
+
+      const range = sel.getRangeAt(0);
+
+      // 선택이 에디터 내부인지 확인
+      const startInEditor = editor.contains(range.startContainer);
+      const endInEditor = editor.contains(range.endContainer);
+      if (!startInEditor || !endInEditor) return null;
+
+      // 선택된 텍스트가 없으면(null)
+      if (range.collapsed) return null;
+
+      return range;
+    }
+
+    // 선택 영역을 span으로 감싸 style 적용 (inline 스타일)
+    function wrapSelectionWithSpan(styleObj) {
+      const range = getEditorRange();
+      if (!range) {
+        alert("에디터 안에서 텍스트를 먼저 선택해 주세요.");
+        return;
+      }
+
+      const span = document.createElement("span");
+      Object.assign(span.style, styleObj);
+
+      // extractContents로 선택 영역만 뽑아 span에 넣고 다시 삽입
+      const content = range.extractContents();
+      span.appendChild(content);
+      range.insertNode(span);
+
+      // 선택을 방금 만든 span 뒤로 이동(UX)
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      const newRange = document.createRange();
+      newRange.setStartAfter(span);
+      newRange.collapse(true);
+      sel.addRange(newRange);
+
+      editor.focus();
+    }
+
+    // 블록(문단/제목) 변경: 선택된 Range의 공통 조상 블록을 찾아 태그 교체
+    function changeBlockTag(tagName) {
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0) return;
+
+      const range = sel.getRangeAt(0);
+      const startInEditor = editor.contains(range.startContainer);
+      const endInEditor = editor.contains(range.endContainer);
+      if (!startInEditor || !endInEditor) {
+        alert("에디터 안에서 선택하거나 커서를 두고 실행해 주세요.");
+        return;
+      }
+
+      // 선택이 없어도(커서만 있어도) 현재 블록 바꾸기 지원
+      let node = range.startContainer;
+      if (node.nodeType === Node.TEXT_NODE) node = node.parentNode;
+
+      // editor 바로 아래에 있는 블록(p/div/h*) 찾기
+      let block = node;
+      while (block && block !== editor) {
+        const name = block.nodeName.toLowerCase();
+        if (["p","div","h1","h2","h3","h4","h5","h6"].includes(name)) break;
+        block = block.parentNode;
+      }
+
+      // 블록이 없거나 editor 자체면 p로 감싸기
+      if (!block || block === editor) {
+        // 커서 기준으로 한 줄 만들기: 현재 selection 위치에 p 삽입
+        const p = document.createElement(tagName);
+        p.innerHTML = "<br>";
+        range.insertNode(p);
+
+        // 커서 이동
+        sel.removeAllRanges();
+        const nr = document.createRange();
+        nr.selectNodeContents(p);
+        nr.collapse(true);
+        sel.addRange(nr);
+        editor.focus();
+        return;
+      }
+
+      // 같은 태그면 종료
+      if (block.nodeName.toLowerCase() === tagName) return;
+
+      // 태그 교체
+      const newBlock = document.createElement(tagName);
+      // 속성 일부 유지(원하면 class/id도 복사 가능)
+      newBlock.innerHTML = block.innerHTML;
+      block.replaceWith(newBlock);
+
+      editor.focus();
+    }
+
+    // 버튼 이벤트
+    document.getElementById("btnBold").addEventListener("click", () => {
+      wrapSelectionWithSpan({ fontWeight: "700" });
+    });
+
+    document.getElementById("btnItalic").addEventListener("click", () => {
+      wrapSelectionWithSpan({ fontStyle: "italic" });
+    });
+
+    document.getElementById("btnUnderline").addEventListener("click", () => {
+      wrapSelectionWithSpan({ textDecoration: "underline" });
+    });
+
+    document.getElementById("colorSelect").addEventListener("change", (e) => {
+      const color = e.target.value;
+      if (!color) return;
+      wrapSelectionWithSpan({ color });
+      e.target.value = ""; // 선택 초기화
+    });
+
+    document.getElementById("blockSelect").addEventListener("change", (e) => {
+      const tag = e.target.value;
+      changeBlockTag(tag);
+    });
+
+    document.getElementById("btnSave").addEventListener("click", () => {
+      result.textContent = editor.innerHTML;
+    });
+  </script>
+</body>
+</html>

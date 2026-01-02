@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>나의 프로필 페이지</title>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      margin-bottom: 30px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #667eea;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    header p {
+      color: #666;
+      font-size: 1.1em;
+    }
+
+    nav {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    nav a {
+      display: inline-block;
+      margin: 0 15px;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #667eea;
+      font-weight: 600;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    main {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      margin-bottom: 30px;
+      backdrop-filter: blur(10px);
+    }
+
+    section {
+      margin-bottom: 50px;
+    }
+
+    section:last-child {
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: 2em;
+      color: #667eea;
+      margin-bottom: 25px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #667eea;
+      display: inline-block;
+    }
+
+    h3 {
+      font-size: 1.5em;
+      color: #764ba2;
+      margin: 25px 0 15px 0;
+    }
+
+    article {
+      background: #f8f9fa;
+      padding: 25px;
+      border-radius: 15px;
+      margin: 20px 0;
+      border-left: 5px solid #667eea;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    article:hover {
+      transform: translateX(5px);
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+    }
+
+    p {
+      margin: 15px 0;
+      color: #555;
+      font-size: 1.05em;
+    }
+
+    strong {
+      color: #667eea;
+      font-weight: 600;
+    }
+
+    img {
+      border-radius: 50%;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 5px solid #667eea;
+      box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+      margin: 20px 0;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.05) rotate(5deg);
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    ul li {
+      background: white;
+      padding: 15px 20px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border-left: 4px solid #764ba2;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    ul li:hover {
+      transform: translateX(10px);
+      box-shadow: 0 5px 15px rgba(118, 75, 162, 0.2);
+      background: linear-gradient(90deg, #fff 0%, #f8f9fa 100%);
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 100%;
+      margin: 20px 0;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    thead {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    th {
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9em;
+      letter-spacing: 1px;
+    }
+
+    td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    tbody tr {
+      transition: background-color 0.3s ease;
+    }
+
+    tbody tr:hover {
+      background-color: #f8f9fa;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* 기술 수준 강조 */
+    td:last-child {
+      font-weight: 600;
+    }
+
+    a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #764ba2;
+      text-decoration: underline;
+    }
+
+    /* 링크 섹션 버튼 스타일 */
+    #links a {
+      display: inline-block;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white !important;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      text-decoration: none !important;
+    }
+
+    #links a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+      background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+
+    audio {
+      width: 100%;
+      max-width: 500px;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+
+    iframe {
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+      margin: 20px 0;
+    }
+
+    aside {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      backdrop-filter: blur(10px);
+      border-left: 5px solid #764ba2;
+    }
+
+    aside h2 {
+      color: #764ba2;
+      margin-bottom: 15px;
+      border-bottom: 3px solid #764ba2;
+    }
+
+    footer {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      color: #666;
+      backdrop-filter: blur(10px);
+    }
+
+    hr {
+      border: none;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #667eea, transparent);
+      margin: 30px 0;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8em;
+      }
+
+      nav a {
+        display: block;
+        margin: 5px 0;
+      }
+
+      main {
+        padding: 20px;
+      }
+
+      img {
+        width: 150px;
+        height: 150px;
+      }
+
+      table {
+        font-size: 0.9em;
+      }
+
+      th, td {
+        padding: 10px;
+      }
+    }
+
+    /* 스크롤 애니메이션 */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    section {
+      animation: fadeInUp 0.6s ease-out;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+  <header>
+    <h1>🙋‍♂️ 김준서의 프로필</h1>
+    <p>HTML 시맨틱 태그로 구성한 자기소개 페이지입니다.</p>
+  </header>
+
+  <nav>
+    <a href="#about">자기소개</a>
+    <a href="#interests">관심사</a>
+    <a href="#skills">기술스택</a>
+    <a href="#links">링크</a>
+    <a href="#media">미디어</a>
+  </nav>
+
+  <main>
+    <!-- 자기소개 -->
+    <section id="about">
+      <h2>📌 자기소개</h2>
+
+      <article>
+        <p>
+          안녕하세요. 저는
+          <strong>응용소프트웨어 전공</strong> |
+          <strong>SK SKALA Cloud 1기</strong>
+          <strong>김준서</strong>입니다. 클라우드에 관심이 많고,
+          새로운 기술을 배우는 것을 좋아합니다.
+        </p>
+
+        <img src="57.jpg" alt="프로필 이미지" />
+      </article>
+    </section>
+
+    <hr />
+
+    <!-- 관심사 -->
+    <section id="interests">
+      <h2>⭐ 관심사</h2>
+      <ul>
+        <li>🏸 배드민턴</li>
+        <li>🍜 라멘 맛집 탐방</li>
+        <li>🏃 러닝 / 운동 루틴 만들기</li>
+        <li>🧩 쿠버네티스·도커 실습하면서 구조 이해하기</li>
+        <li>🛠️ 프로젝트 아이디어 구상 & 구현 (서비스 흐름 만들기)</li>
+      </ul>
+    </section>
+
+    <hr />
+
+    <!-- 기술스택(테이블) : 네가 기존에 쓰던 요약 테이블 -->
+    <section>
+      <h2>🧾 기술 스택 요약</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>분야</th>
+            <th>기술</th>
+            <th>수준</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Frontend</td>
+            <td>HTML, CSS, JavaScript, React, RN, Android</td>
+            <td>기초</td>
+          </tr>
+          <tr>
+            <td>Backend</td>
+            <td>Java, Spring Boot, MySQL, SQL, Python</td>
+            <td>중급</td>
+          </tr>
+          <tr>
+            <td>DevOps</td>
+            <td>Git, GitHub, AWS, k8s, Docker</td>
+            <td>학습중</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr />
+
+    <!-- 기술활용(상/중/하) : 네가 준 기술서 내용을 표로 정리 -->
+    <section id="skills">
+      <h2>🛠 기술 활용 현황</h2>
+
+      <!-- 개발 언어 -->
+      <article>
+        <h3>① 개발 언어 (Programming Language)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>언어</th>
+              <th>활용 수준(상/중/하)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Java</td><td>중</td></tr>
+            <tr><td>Python</td><td>하</td></tr>
+            <tr><td>JavaScript / CSS</td><td>하</td></tr>
+            <tr><td>Kotlin</td><td>하</td></tr>
+            <tr><td>SQL</td><td>중</td></tr>
+            <tr><td>Bash Shell</td><td>하</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <hr />
+
+      <!-- 개발 환경 -->
+      <article>
+        <h3>② 개발 환경 (Framework)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>환경 / 프레임워크</th>
+              <th>활용 수준(상/중/하)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Spring Boot</td><td>중</td></tr>
+            <tr><td>React</td><td>중</td></tr>
+            <tr><td>Kubernetes</td><td>중</td></tr>
+            <tr><td>Docker</td><td>중</td></tr>
+            <tr><td>GitHub Actions</td><td>하</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <hr />
+
+      <!-- 데이터베이스 -->
+      <article>
+        <h3>③ 데이터베이스 (DBMS)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>DBMS</th>
+              <th>활용 수준(상/중/하)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>MySQL</td><td>중</td></tr>
+            <tr><td>Oracle</td><td>하</td></tr>
+            <tr><td>PostgreSQL</td><td>하</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <hr />
+
+      <!-- AI / Data -->
+      <article>
+        <h3>④ AI / Data</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>기술 / 알고리즘</th>
+              <th>활용 수준(상/중/하)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>데이터 전처리(pandas)</td><td>하</td></tr>
+            <tr><td>Linear Regression</td><td>하</td></tr>
+            <tr><td>k-NN</td><td>하</td></tr>
+            <tr><td>K-means</td><td>하</td></tr>
+            <tr><td>PCA</td><td>하</td></tr>
+            <tr><td>DecisionTree</td><td>하</td></tr>
+            <tr><td>LSTM</td><td>하</td></tr>
+            <tr><td>OpenAI API</td><td>중</td></tr>
+            <tr><td>Vision API</td><td>중</td></tr>
+            <tr><td>모델 평가(F1/ROC)</td><td>하</td></tr>
+          </tbody>
+        </table>
+      </article>
+    </section>
+
+    <hr />
+
+    <!-- 링크 -->
+    <section id="links">
+      <h2>🔗 링크</h2>
+      <article>
+      <p>
+          <a href="https://github.com/" target="_blank">🔗 GitHub 방문하기</a>
+      </p>
+      </article>
+    </section>
+
+    <hr />
+
+    <!-- 미디어 -->
+    <section id="media">
+      <h2>🎵🎬 미디어</h2>
+
+      <article>
+        <h3>🎵 BGM</h3>
+        <audio controls>
+          <source src="travel.mp3" type="audio/mpeg" />
+          오디오를 지원하지 않는 브라우저입니다.
+        </audio>
+      </article>
+
+      <article>
+        <h3>🎬 소개 영상</h3>
+        <iframe
+          width="360"
+          height="200"
+          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          title="YouTube video"
+          allowfullscreen>
+        </iframe>
+      </article>
+    </section>
+  </main>
+
+  <!-- 보조 정보 -->
+  <aside>
+    <h2>📎 한 줄 정보</h2>
+    <p>지금 목표: 웹 기초 완벽하게 익히기 ✅</p>
+  </aside>
+
+  <footer>
+    <p>© 2025 김준서</p>
+  </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>나의 교토 여행 앨범 🎵</title>
+
+  <style>
+    .album {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    figure { margin: 0; }
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>🗾 나의 교토 여행 앨범 🎵</h1>
+
+  <!-- BGM -->
+  <audio controls autoplay loop>
+    <source src="media/travel.mp3" type="audio/mpeg" />
+  </audio>
+
+  <hr />
+
+  <section>
+    <h2>📸 Photo</h2>
+
+    <div class="album">
+      <!-- 교토 -->
+      <figure>
+        <picture>
+          <!-- 큰 화면 -->
+          <source srcset="media/kyoto-large.jpeg" media="(min-width: 1200px)" />
+          <!-- 기본 화면 -->
+          <source srcset="media/kyoto.jpeg" media="(min-width: 601px)" />
+          <!-- 작은 화면 -->
+          <source srcset="media/kyoto-small.jpeg" media="(max-width: 600px)" />
+          <img src="media/kyoto.jpeg" alt="교토 거리 풍경" />
+        </picture>
+        <figcaption><strong>교토</strong> — 골목과 공기의 분위기</figcaption>
+      </figure>
+
+      <!-- 아라시야마 -->
+      <figure>
+        <picture>
+          <source srcset="media/arashiyama-large.jpeg" media="(min-width: 1200px)" />
+          <source srcset="media/arashiyama.jpeg" media="(min-width: 601px)" />
+          <source srcset="media/arashiyama-small.jpeg" media="(max-width: 600px)" />
+          <img src="media/arashiyama.jpeg" alt="아라시야마 대나무 숲" />
+        </picture>
+        <figcaption><strong>아라시야마</strong> — 대나무 숲 산책</figcaption>
+      </figure>
+
+      <!-- 여우 -->
+      <figure>
+        <picture>
+          <source srcset="media/fox.jpeg" media="(min-width: 601px)" />
+          <source srcset="media/fox.jpeg" media="(max-width: 600px)" />
+          <img src="media/fox.jpeg" alt="후시미이나리 여우 신사" />
+        </picture>
+        <figcaption><strong>후시미이나리</strong> — 여우 신사의 상징</figcaption>
+      </figure>
+
+      <!-- 골드 -->
+      <figure>
+        <picture>
+          <source srcset="media/gold.jpeg" media="(min-width: 601px)" />
+          <source srcset="media/gold.jpeg" media="(max-width: 600px)" />
+          <img src="media/gold.jpeg" alt="금빛이 인상적인 장면" />
+        </picture>
+        <figcaption><strong>금빛 순간</strong> — 가장 마음에 든 사진</figcaption>
+      </figure>
+    </div>
+  </section>
+</body>
+</html>

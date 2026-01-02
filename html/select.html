@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>여러가지 입력 유형</title>
+</head>
+<body>
+    <h1>좋아하는 과일을 선택하세요</h1>
+    <select id="fruitSelect">
+        <option value="">-- 과일 선택 --</option>
+        <option value="apple">사과</option>
+        <option value="banana">바나나</option>
+        <option value="cherry">체리</option>
+        <option value="date">대추야자</option>
+        <option value="elderberry">엘더베리</option>
+    </select>
+    <p>선택한 과일: <span id="selectedFruits">없음</span></p>
+    <script>
+        const fruitSelect = document.getElementById('fruitSelect');
+        const selectedFruits = document.getElementById('selectedFruits');
+
+        fruitSelect.addEventListener('change', () => {
+            const selectedOption = fruitSelect.options[fruitSelect.selectedIndex];
+            selectedFruits.textContent = selectedOption.value || '없음';
+        });
+    </script>
+    
+</body>
+</html>
