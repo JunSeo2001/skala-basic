@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바스크립트 변수</title>
+</head>
+<body>
+    <script>
+        var y = 10;
+        function test() {
+            if (true) {
+                const y = 30; // 같은 함수 스코프 내에서 재선언
+                console.log("if 블록 내부 y:", y); // 30
+            }
+            console.log("함수 내부 y:", y); // 30
+        }
+        test();
+
+        function greet() {
+            const name = "Kim Junseo";
+            console.log("안녕하세요, " + name + "님!");
+        }
+        console.log("Name:", name);
+        greet();
+    </script>
+</body>
+</html>

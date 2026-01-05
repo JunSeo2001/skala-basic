@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홍길동의 변신</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f0f2f5; }
+        .display-box { padding: 20px 40px; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); font-size: 24px; font-weight: bold; color: #333; }
+    </style>
+</head>
+<body>
+    <div id="result-display" class="display-box"></div>
+
+    <script>
+        // 1. 이름 입력 받기
+        const newName = prompt("무엇으로 변신할까요?");
+        const displayElement = document.getElementById('result-display');
+
+        // 2. 변신 함수
+        function transformName(name) {
+            return `홍길동 변신 - ${name}!`;
+        }
+
+        // 3. 조건에 따른 화면(document) 출력
+        if (newName && newName.trim() !== "") {
+            // 입력값이 있을 때
+            displayElement.innerText = transformName(newName);
+        } else {
+            // 취소를 누르거나 빈 값을 입력했을 때
+            displayElement.innerText = "연기처럼 사라졌습니다.";
+            displayElement.style.color = "red";
+        }
+    </script>
+</body>
+</html>

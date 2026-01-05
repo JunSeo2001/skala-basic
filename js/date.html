@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시간</title>
+</head>
+<body>
+    <h3>1 기본 함수 (현재 시간)</h3>
+
+    <script>
+        function formatDateTime(date = new Date()) {
+        const pad = (n) => String(n).padStart(2, "0");
+
+        const year = date.getFullYear();
+        const month = pad(date.getMonth() + 1);
+        const day = pad(date.getDate());
+
+        const hour = pad(date.getHours());
+        const minute = pad(date.getMinutes());
+        const second = pad(date.getSeconds());
+
+        return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+        }
+
+        // 사용 예
+        console.log(formatDateTime());
+
+        const now = new Date();
+
+        // epoch 시간 출력
+        const dayAfter30 = now.getTime() + 30 * 24 * 60 * 60 * 1000; // 30일 후
+        console.log(dayAfter30);
+
+        console.log(formatDateTime(new Date(dayAfter30)));
+
+        // 로컬 시간 출력 - 영국 천문대
+        console.log(now.toLocaleDateString());
+    </script>
+</body>
+</html>

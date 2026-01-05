@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>홍길동의 식량 분배</title>
+    <style>
+        table { border-collapse: collapse; width: 400px; margin-top: 20px; font-family: sans-serif; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+        th { background-color: #f8f9fa; color: #333; }
+        tr:nth-child(even) { background-color: #fcfcfc; }
+    </style>
+</head>
+<body>
+
+    <h2>식량 분배 결과</h2>
+    <div id="table-app"></div>
+
+    <script>
+        const foods = ["쌀", "보리", "콩", "감자", "양파", "마늘", "배추", "무", "고구마", "호박"];
+        const poors = ["철수", "영희", "민수"];
+
+        // 1. 데이터 배분 로직 (reduce 활용)
+        // poors 배열을 기반으로 각 사람에게 해당하는 인덱스의 식량을 필터링하여 객체 배열 생성
+        const results = poors.map((name, pIdx) => ({
+            name,
+            items: foods.filter((_, fIdx) => fIdx % poors.length === pIdx)
+        }));
+
+        // 콘솔 출력
+        console.table(results);
+
+        // 2. UI 생성 함수 (분리)
+        function createTable(data) {
+            const rows = data.map(person => `
+                <tr>
+                    <td>${person.name}</td>
+                    <td>${person.items.join(', ')}</td>
+                </tr>
+            `).join('');
+
+            return `
+                <table>
+                    <thead>
+                        <tr><th>이름</th><th>받은 식량</th></tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                </table>
+            `;
+        }
+
+        // 3. 렌더링
+        document.getElementById('table-app').innerHTML = createTable(results);
+    </script>
+</body>
+</html>
