@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>객체</title>
+</head>
+<body>
+    <script>
+        const person = {
+            name: "홍길동",
+            age: 30,
+            skills: ['검술', '둔갑술', '말타기'],
+            greet: function() {
+                return `안녕하세요, 저는 ${this.name}입니다.`;
+            }
+        };
+        const msg = JSON.stringify(person);
+        console.log(msg, person);
+
+
+        const student = {...person};
+        student.name = "이몽룡";
+        student.age = 25;
+        student.skills = ['서예'];
+        console.log("Person:", person.greet());
+        console.log("Student:", student.greet());
+
+        const skala = {};
+        skala.address = "분당구 정자동";
+        skala.className = "클라우드반";
+        skala.instructor = "김준서";
+        console.log(skala);
+    </script>
+</body>
+</html>

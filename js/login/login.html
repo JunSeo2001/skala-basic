@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+</head>
+<body>
+    <h1>로그인 페이지</h1>
+    <form id="login-form">
+        <label for="username">아이디:</label>
+        <input type="text" id="username" name="username"><br><br>
+        <label for="password">비밀번호:</label>
+        <input type="password" id="password" name="password"><br><br>
+        <button type="submit">로그인</button>
+    </form>
+
+    <script type="module">
+        import { isNotEmpty } from './validator.js';
+
+        const loginForm = document.getElementById('login-form');
+
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // 폼 제출 기본 동작 방지
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // 유효성 검사
+            if (!isNotEmpty(username, '아이디')) return;
+            if (!isNotEmpty(password, '비밀번호')) return;
+
+            // 유효성 검사를 통과하면 로그인 처리 (여기서는 단순히 콘솔에 출력)
+            console.log('로그인 시도:', { username, password });
+            alert('로그인 성공!');
+        });
+    </script>
+</body>
+</html>

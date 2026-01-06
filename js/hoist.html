@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoist 예시</title>
+</head>
+<body>
+    <script>
+        let x = add(5, 10);
+        console.log(`x: ${x}`);
+
+        // 함수 선언문은 호이스팅 되어 정상 작동
+        function add(a, b) {
+            return a + b;
+        } 
+
+        // 함수 표현식은 호이스팅 되지 않아 오류 발생
+        const add2 = (a, b) => {
+            return a + b;
+        };
+
+    </script>
+</body>
+</html>
